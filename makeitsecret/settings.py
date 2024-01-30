@@ -130,6 +130,8 @@ STATIC_URL = 'static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
+CLIENT_APP_HEADER = ""
+
 try:
     from .local_settings import *
 except Exception as e:

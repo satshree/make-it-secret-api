@@ -13,3 +13,5 @@ DEBUG = True
 # }
 
 ALLOWED_HOSTS = ['*']
+
+CLIENT_APP_HEADER = ""
