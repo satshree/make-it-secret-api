@@ -10,7 +10,7 @@ from django.core.files.base import ContentFile
 from cryptography.hazmat.primitives import hashes
 from cryptography.hazmat.backends import default_backend
 from cryptography.hazmat.primitives.kdf.pbkdf2 import PBKDF2HMAC
-
+from .utilities import parse_date
 
 SEPARATOR = "\n-----\n"
 
@@ -93,7 +93,7 @@ def encrypt(key, file_instance):
     ext = og_file_name.split(".").pop()  # GET FILE EXTENSION
     meta = "{} | Encrypted By Make It Secret, {} | {}\n".format(
         ext,
-        datetime.now(),
+        parse_date(datetime.now()),
         encrypt_backup_key()
     )
     file_contents += meta.encode()
