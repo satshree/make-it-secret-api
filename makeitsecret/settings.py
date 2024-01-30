@@ -10,6 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.0/ref/settings/
 """
 
+import os
 from pathlib import Path
 from corsheaders.defaults import default_headers
 
@@ -137,7 +138,7 @@ STATIC_URL = 'static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-CLIENT_APP_HEADER = ""
+CLIENT_APP_HEADER = os.environ.get("CLIENT_APP_HEADER", "")
 
 # CORS SETTINGS
 CORS_ORIGIN_ALLOW_ALL = False
