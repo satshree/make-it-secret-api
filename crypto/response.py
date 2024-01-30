@@ -35,7 +35,8 @@ def success_response(data=None, message=None, error=None, status=200):
     if type(data) in (list, dict):
         new_data["results"] = data
 
-    response = HttpResponse(json.dumps(new_data), status=status)
+    response = HttpResponse(json.dumps(new_data),
+                            status=status, content_type='application/json')
     return send_with_cors(response)
 
 
@@ -57,7 +58,8 @@ def error_response(
 
     if type(data) in (list, dict):
         new_data["results"] = data
-    response = HttpResponse(json.dumps(new_data), status=status)
+    response = HttpResponse(json.dumps(new_data),
+                            status=status, content_type='application/json')
     return send_with_cors(response)
 
 
