@@ -10,12 +10,12 @@ class AuthenticatePublicAPIMiddleware:
         return self.get_response(request)
 
     def process_view(self, request, view_func, view_args, view_kwargs):
-        if request.path.startswith('/api/'):
-            try:
-                key = request.META.get("HTTP_APP")
-                if key != settings.CLIENT_APP_HEADER:
-                    raise Exception
-            except:
-                return HttpResponse("Unauthorized.", status=401)
+        # if request.path.startswith('/api/'):
+        try:
+            key = request.META.get("HTTP_APP")
+            if key != settings.CLIENT_APP_HEADER:
+                raise Exception
+        except:
+            return HttpResponse("Unauthorized.", status=401)
 
         return None
