@@ -69,7 +69,7 @@ def decipher(message, user_key):
 def encrypt_backup_key(key):
     """Encrypt the backup key used for recovery."""
     backup_key = generate_key("BACKUP")
-    return encipher(key, backup_key).decode("utf-8")
+    return encipher(key.decode("utf-8"), backup_key).decode("utf-8")
 
 
 def encrypt(key, file_instance):
@@ -94,7 +94,7 @@ def encrypt(key, file_instance):
     meta = "{} | Encrypted By Make It Secret, {} | {}\n".format(
         ext,
         parse_date(datetime.now()),
-        encrypt_backup_key()
+        encrypt_backup_key(key)
     )
     file_contents += meta.encode()
 
