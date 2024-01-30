@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 """
 
 from pathlib import Path
+from corsheaders.defaults import default_headers
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -39,6 +40,9 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
+    # THIRD PARTY APPS
+    'corsheaders',
+
     # MAKE IT SECRET APPS
     'crypto'
 ]
@@ -52,6 +56,9 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+
+    # THIRD PARTY MIDDLEWARES
+    'corsheaders.middleware.CorsMiddleware',
 
     # CUSTOM MIDDLEWARES
     'crypto.middleware.AuthenticatePublicAPIMiddleware'
@@ -131,6 +138,11 @@ STATIC_URL = 'static/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 CLIENT_APP_HEADER = ""
+
+# CORS SETTINGS
+CORS_ORIGIN_ALLOW_ALL = False
+CORS_ALLOW_HEADERS = list(default_headers)
+CORS_ALLOW_HEADERS.append('app')
 
 try:
     from .local_settings import *
