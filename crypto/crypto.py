@@ -1,8 +1,9 @@
 import os
+import pytz
 import base64
 from io import BytesIO
 from datetime import datetime
-# from django.conf import settings
+from django.conf import settings
 # from django.core.files import File
 from cryptography.fernet import Fernet
 from base64 import b64encode, b64decode
@@ -81,19 +82,23 @@ def encrypt(key, file_instance):
     key = generate_key(key)
 
     # READ FILE
-    encoded_data = b64encode(file_instance.read())
+    file_data = b64encode(file_instance.read()).decode("utf-8")
 
     # CREATE FILE NAME TO WRITE
-    og_file_name = file_instance.name.split(
-        os.path.sep).pop()
+    file_name_split = file_instance.name.split()
+
+    ext = file_name_split[-1]  # GET FILE EXTENSION
+    del file_name_split[-1]
+
+    og_file_name = "".join(file_name_split)
     file_name = (og_file_name + ".mis").replace(" ", "_")
 
     # WRITE META DATA
     file_contents = b""
-    ext = og_file_name.split(".").pop()  # GET FILE EXTENSION
+
     meta = "{} | Encrypted By Make It Secret, {} | {}\n".format(
         ext,
-        parse_date(datetime.now()),
+        datetime.now().astimezone(tz=pytz.timezone(settings.TIME_ZONE)),
         encrypt_backup_key(key)
     )
     file_contents += meta.encode()
@@ -102,12 +107,12 @@ def encrypt(key, file_instance):
     file_contents += SEPARATOR.encode()
 
     # ENCRYPT DATA
-    enc = encipher(encoded_data.decode("utf-8"), key)
+    enc = encipher(file_data, key)
 
     # WRITE ENCRYPTED DATA
     file_contents += enc
 
-    file_contents = BytesIO(b64decode(enc))
+    file_contents = BytesIO(file_contents)
     content_file = ContentFile(file_contents.getvalue(), file_name)
 
     return content_file
@@ -133,14 +138,15 @@ def decrypt(key, file_instance):
     )
 
     # CREATE ORIGINAL FILE NAME
-    file_name = file_instance.name.split(
-        os.path.sep).pop().split(".").pop() + ext
+    file_name_split = file_instance.name.split(".")
+    del file_name_split[-1]
+    file_name = "".join(file_name_split) + ext
 
     # GET FILE CONTENTS
-    file_content = content.split(SEPARATOR)[-1].encode()
+    file_content = content.split(SEPARATOR)[-1]  # .encode()
 
     # DECRYPT DATA
-    dec = decipher(file_content.decode("utf-8"), key)
+    dec = decipher(file_content, key)
 
     if dec == 0:
         # KEY MISMATCH
