@@ -51,7 +51,7 @@ class EncryptView(MainView):
             return response
 
 
-class DecryptView(View):
+class DecryptView(MainView):
     def post(self, request, *args, **kwargs):
         file_name = ""
         try:
@@ -76,7 +76,7 @@ class DecryptView(View):
             print(str(e))
             print("-" * 100)
 
-            return self.error_response(message="Something went wrong", error=str(e))
+            return self.error_response(message="Something went wrong", error=str(e), status=555)
         else:
             response = self.file_response(
                 file_data=decrypted_file, file_name=file_name)
