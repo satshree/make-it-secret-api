@@ -121,7 +121,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'America/Chicago'
 
 USE_I18N = True
 
@@ -144,6 +144,7 @@ CLIENT_APP_HEADER = os.environ.get("CLIENT_APP_HEADER", "")
 CORS_ORIGIN_ALLOW_ALL = False
 CORS_ALLOW_HEADERS = list(default_headers)
 CORS_ALLOW_HEADERS.append('app')
+CORS_EXPOSE_HEADERS = ['content-disposition']
 
 try:
     from .local_settings import *
