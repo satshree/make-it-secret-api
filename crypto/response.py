@@ -69,6 +69,6 @@ def file_response(file_data, filename=None):
 
     Default HTTP Status Code: 200 OK
     """
-    response = HttpResponse(file_data, content_type=f'application/{filename}')
+    response = HttpResponse(file_data, content_type='application/octet-stream')
     response['Content-Disposition'] = f'attachment; filename="{filename}"'
     return send_with_cors(response)
