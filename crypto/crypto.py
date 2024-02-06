@@ -89,7 +89,7 @@ def encrypt(key, file_instance):
     # WRITE META DATA
     file_contents = b""
 
-    meta = "{} | Encrypted By Make It Secret, {} | {}\n".format(
+    meta = "{} | Encrypted By Make It Secret, {}\n".format(
         ext,
         datetime.now().astimezone(tz=pytz.timezone(settings.TIME_ZONE))
     )

@@ -37,7 +37,7 @@ class EncryptView(MainView):
                 return self.error_response(message="'file' is required!", status=400)
 
             encrypted_file = encrypt(key, file_instance)
-            file_name = encrypted_file.name.split(os.path.sep).pop()
+            file_name = encrypted_file.name  # .split(os.path.sep).pop()
         except Exception as e:
             print("-" * 100)
             print("Exception caught from 'crypto.views.EncryptView.post'")
@@ -69,7 +69,7 @@ class DecryptView(MainView):
                 return self.error_response(message="'file' is required!", status=400)
 
             decrypted_file = decrypt(key, file_instance)
-            file_name = decrypted_file.name.split(os.path.sep).pop()
+            file_name = decrypted_file.name  # .split(os.path.sep).pop()
         except Exception as e:
             print("-" * 100)
             print("Exception caught from 'crypto.views.DecryptView.post'")
