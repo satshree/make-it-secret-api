@@ -66,12 +66,6 @@ def decipher(message, user_key):
         return 0
 
 
-def encrypt_backup_key(key):
-    """Encrypt the backup key used for recovery."""
-    backup_key = generate_key("BACKUP")
-    return encipher(key.decode("utf-8"), backup_key).decode("utf-8")
-
-
 def encrypt(key, file_instance):
     """
     Encrypt file.
@@ -97,8 +91,7 @@ def encrypt(key, file_instance):
 
     meta = "{} | Encrypted By Make It Secret, {} | {}\n".format(
         ext,
-        datetime.now().astimezone(tz=pytz.timezone(settings.TIME_ZONE)),
-        encrypt_backup_key(key)
+        datetime.now().astimezone(tz=pytz.timezone(settings.TIME_ZONE))
     )
     file_contents += meta.encode()
 
