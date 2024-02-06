@@ -22,7 +22,7 @@ def generate_key(user_key):
     password = user_key.encode()
 
     # Salt for SHA256 hash
-    salt = settings.ENCRYPTION_KEY_SALT
+    salt = settings.ENCRYPTION_KEY_SALT.encode()
 
     # Generate Hash
     kdf = PBKDF2HMAC(
@@ -84,7 +84,8 @@ def encrypt(key, file_instance):
     file_data = b64encode(file_instance.read()).decode("utf-8")
 
     # CREATE FILE NAME TO WRITE
-    file_name_split = file_instance.name.split()
+    file_name_split = file_instance.name.split(".")
+    print('name', file_name_split)
 
     ext = file_name_split[-1]  # GET FILE EXTENSION
     del file_name_split[-1]
