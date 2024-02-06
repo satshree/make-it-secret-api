@@ -147,6 +147,7 @@ CORS_ORIGIN_ALLOW_ALL = False
 CORS_ALLOW_HEADERS = list(default_headers)
 CORS_ALLOW_HEADERS.append('app')
 CORS_EXPOSE_HEADERS = ['content-disposition']
+CORS_ALLOWED_ORIGINS = ['https://make-it-secret.netlify.app']
 
 try:
     from .local_settings import *

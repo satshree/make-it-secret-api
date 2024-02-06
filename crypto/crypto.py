@@ -85,7 +85,6 @@ def encrypt(key, file_instance):
 
     # CREATE FILE NAME TO WRITE
     file_name_split = file_instance.name.split(".")
-    print('name', file_name_split)
 
     ext = file_name_split[-1]  # GET FILE EXTENSION
     del file_name_split[-1]
