@@ -140,6 +140,8 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 CLIENT_APP_HEADER = os.environ.get("CLIENT_APP_HEADER", "")
 
+ENCRYPTION_KEY_SALT = os.environ.get("ENCRYPTION_KEY_SALT", "")
+
 # CORS SETTINGS
 CORS_ORIGIN_ALLOW_ALL = False
 CORS_ALLOW_HEADERS = list(default_headers)

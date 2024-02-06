@@ -11,7 +11,7 @@ from django.core.files.base import ContentFile
 from cryptography.hazmat.primitives import hashes
 from cryptography.hazmat.backends import default_backend
 from cryptography.hazmat.primitives.kdf.pbkdf2 import PBKDF2HMAC
-from .utilities import parse_date
+# from .utilities import parse_date
 
 SEPARATOR = "\n-----\n"
 
@@ -22,8 +22,7 @@ def generate_key(user_key):
     password = user_key.encode()
 
     # Salt for SHA256 hash
-    # salt = b'StrongestAvenger__HULK'
-    salt = b'Xj4jA}AZF^j(9CYkl9}9tta/dQhDJWP**TRHrfM2tt2OQIQ&+q'
+    salt = settings.ENCRYPTION_KEY_SALT
 
     # Generate Hash
     kdf = PBKDF2HMAC(
