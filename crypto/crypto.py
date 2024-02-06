@@ -84,7 +84,7 @@ def encrypt(key, file_instance):
     del file_name_split[-1]
 
     og_file_name = "".join(file_name_split)
-    file_name = (og_file_name + ".mis").replace(" ", "_")
+    file_name = (og_file_name + ".mis")  # .replace(" ", "_")
 
     # WRITE META DATA
     file_contents = b""
