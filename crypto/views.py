@@ -2,6 +2,7 @@ import os
 from django.views import View
 from .crypto import encrypt, decrypt
 from .utilities import parse_request_body
+from .exceptions import KeyMismatchException
 from .response import success_response, error_response, file_response
 
 
@@ -70,13 +71,15 @@ class DecryptView(MainView):
 
             decrypted_file = decrypt(key, file_instance)
             file_name = decrypted_file.name  # .split(os.path.sep).pop()
+        except KeyMismatchException as e:
+            return self.error_response(error=str(e), status=555)
         except Exception as e:
             print("-" * 100)
             print("Exception caught from 'crypto.views.DecryptView.post'")
             print(str(e))
             print("-" * 100)
 
-            return self.error_response(message="Something went wrong", error=str(e), status=555)
+            return self.error_response(message="Something went wrong", error=str(e))
         else:
             response = self.file_response(
                 file_data=decrypted_file, file_name=file_name)

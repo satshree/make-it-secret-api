@@ -1,4 +1,4 @@
-import os
+# import os
 import pytz
 import base64
 from io import BytesIO
@@ -12,6 +12,7 @@ from cryptography.hazmat.primitives import hashes
 from cryptography.hazmat.backends import default_backend
 from cryptography.hazmat.primitives.kdf.pbkdf2 import PBKDF2HMAC
 # from .utilities import parse_date
+from .exceptions import KeyMismatchException
 
 SEPARATOR = "\n-----\n"
 
@@ -142,7 +143,7 @@ def decrypt(key, file_instance):
 
     if dec == 0:
         # KEY MISMATCH
-        raise Exception("Key Mismatch")
+        raise KeyMismatchException
 
     file_contents = BytesIO(b64decode(dec))
     content_file = ContentFile(file_contents.getvalue(), file_name)
